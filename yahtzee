@@ -1,9 +1,9 @@
 #!/bin/ruby
 require 'pry'
-require './dices.rb'
-require './players.rb'
-require './utils.rb'
-require './score.rb'
+require './files/dices.rb'
+require './files/players.rb'
+require './files/utils.rb'
+require './files/score.rb'
 
 puts "Let's play!"
 
