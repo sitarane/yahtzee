@@ -1,0 +1,61 @@
+#!/bin/ruby
+require 'pry'
+require './dices.rb'
+require './players.rb'
+require './utils.rb'
+require './score.rb'
+
+puts "Let's play!"
+
+players = get_players
+
+separator
+
+puts "GET READY, #{list_string(player_names(players))}!"
+
+13.times do
+  players.each do |player|
+    puts "#{player[:name]}, it's your turn."
+    puts "Hit Enter to throw!"
+    gets
+    saved_dices = []
+    show_rows(player[:score])
+
+    3.times do |time|
+      separator
+      roll = roll_dices(5 - saved_dices.length)
+      separator
+      if time < 2
+        keepers = pick_dices(roll)
+      else
+        keepers = roll
+      end
+
+      saved_dices += keepers
+
+      break if saved_dices.length == 5
+    end
+    
+    saved_dices.sort!
+    
+    puts "You have #{list_string(saved_dices)}. Let's score it."
+    gets
+
+    score_hash = score(saved_dices, player[:score])
+    player[:score] = player[:score].merge(score_hash) # something fishy here
+    puts "Good job #{player[:name]}, you have added #{score_hash.values.first} to your score!"
+    puts "You have now #{player[:score].values.sum}"
+  end
+  
+  separator
+
+  # end_of_round_comment(players)
+end
+
+# bad
+ranked_players = players.sort_by { |player| -player[:score].values.sum }
+puts "Our winner is #{players.first[:name]} with #{players.first[:score].values.sum.to_s} points!"
+puts "Then we have #{winner_list_string(ranked_players.drop(1))}"
+puts "Good game!"
+
+# puts "Game over, Julien is the winner"
