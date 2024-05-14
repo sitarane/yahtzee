@@ -56,9 +56,9 @@ puts "GET READY, #{list_string(player_names(players))}!"
   # end_of_round_comment(players)
 end
 
-# bad
 ranked_players = players.sort_by { |player| -player[:score].values.sum }
-puts "Our winner is #{players.first[:name]} with #{players.first[:score].values.sum.to_s} points!"
+winner = ranked_players.first
+puts "Our winner is #{winner[:name]} with #{winner[:score].values.sum.to_s} points!"
 puts "Then we have #{winner_list_string(ranked_players.drop(1))}"
 puts "Good game!"
 
