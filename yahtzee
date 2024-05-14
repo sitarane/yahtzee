@@ -1,5 +1,5 @@
 #!/bin/ruby
-require 'pry'
+require 'pry' # TODO remove
 require './files/dices.rb'
 require './files/players.rb'
 require './files/utils.rb'
