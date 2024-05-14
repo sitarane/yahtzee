@@ -15,9 +15,10 @@ def pick_dices(dices_array)
     return []
   else
     candidates = keeper_string.scan(/\d/).map(&:to_i)
-    checked_candidates = (candidates & dices_array).flat_map do |n|
-      [n]*[candidates.count(n), dices_array.count(n)].min
-    end
+    checked_candidates = candidates
+    #checked_candidates = (candidates & dices_array).flat_map do |n|
+    #  [n]*[candidates.count(n), dices_array.count(n)].min
+    #end
     # handle 1. numbers higher than allowed 2. more items that allowed 3. no numbers
     puts "You decided to keep #{list_string(checked_candidates)}" # handle incorrect
     return checked_candidates

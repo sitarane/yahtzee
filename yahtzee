@@ -19,7 +19,7 @@ puts "GET READY, #{list_string(player_names(players))}!"
     puts "Hit Enter to throw!"
     gets
     saved_dices = []
-    show_rows(player[:score])
+    show_rows(player)
 
     3.times do |time|
       separator
@@ -41,8 +41,12 @@ puts "GET READY, #{list_string(player_names(players))}!"
     puts "You have #{list_string(saved_dices)}. Let's score it."
     gets
 
-    score_hash = score(saved_dices, player[:score])
-    player[:score] = player[:score].merge(score_hash) # something fishy here
+    score_hash = score(saved_dices, player)
+    if score_hash[:yahtzee] && player[:score][:yahtzee] # is 2nd yahtzee
+      player[:score][:yahtzee] += score_hash[:yahtzee]
+    else
+      player[:score] = player[:score].merge(score_hash)
+    end
     puts "Good job #{player[:name]}, you have added #{score_hash.values.first} to your score!"
     puts "You have now #{player[:score].values.sum}"
   end
