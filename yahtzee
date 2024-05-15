@@ -13,13 +13,15 @@ separator
 
 puts "GET READY, #{list_string(player_names(players))}!"
 
-13.times do
+13.times do |round|
   players.each do |player|
     puts "#{player[:name]}, it's your turn."
+    puts ''
+    show_rows(player)
+    puts ''
     puts "Hit Enter to throw!"
     gets
     saved_dices = []
-    show_rows(player)
 
     3.times do |time|
       separator
@@ -49,11 +51,15 @@ puts "GET READY, #{list_string(player_names(players))}!"
     end
     puts "Good job #{player[:name]}, you have added #{score_hash.values.first} to your score!"
     puts "You have now #{player[:score].values.sum}"
+    puts "Hit enter and let the next one play."
+    gets
+    separator
   end
   
-  separator
+  sorted_players_with_scores = players.map { |player| [player[:name], player[:score].values.sum] }
+  puts end_of_round_comment(sorted_players_with_scores) unless round > 11
 
-  # end_of_round_comment(players)
+  separator
 end
 
 ranked_players = players.sort_by { |player| -player[:score].values.sum }

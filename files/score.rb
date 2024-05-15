@@ -22,8 +22,12 @@ def show_rows(player, dices = nil)
   count = 1
   remaining_rows_array = Array.new
   remaining_rows.each do |key, item|
-    estimation_string = ' = ' + score_as(key, dices, player).to_s + ' points' if dices
-    puts count.to_s + ". " + item[:name] + " | " + item[:hint] + estimation_string if dices
+    estimation_string = if dices
+      ' = ' + score_as(key, dices, player).to_s + ' points'
+    else
+      ''
+    end
+    puts count.to_s + ". " + item[:name] + " | " + item[:hint] + estimation_string
     remaining_rows_array << key
     count += 1
   end
