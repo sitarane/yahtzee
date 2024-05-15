@@ -70,7 +70,7 @@ def score_as(type, dices, player)
     return 0
   when :yahtzee
     if dices.count(dices.first) == 5
-      return 100 if player[:score][:yahtzee]
+      return 100 if player[:score][:yahtzee] && player[:score][:yahtzee] >= 50
       return 50
     end
     return 0
